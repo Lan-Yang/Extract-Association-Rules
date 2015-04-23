@@ -23,6 +23,7 @@ def Apriori(file_name, min_sup, min_conf):
 	item_list, row_list, item_freq = GetItemRow(file_name)
 	total_num = len(row_list)
 
+
 def main():
 	if len(sys.argv) == 2:
 		file_name = sys.argv[1]
