@@ -1,0 +1,37 @@
+1. Team
+Peng Song
+Lan Yang
+
+2. Files:
+apriori.py						#python program
+XXX.csv							#integrated-dataset file
+output.txt						#output of integrated-dataset file
+example-run.txt					#output of sample
+
+3. Choice of NYC Open Data data set
+
+
+
+4. Description of Running:
+To run out program, run the following commands
+$python apriori.py <integrated-dataset file name> <min_support> <min_conf>
+or
+$python apriori.py <integrated-dataset file name>
+$Minimum Support (between 0 and 1): <min_support>
+$Minimum Confidence (between 0 and 1): <min_conf>
+
+5. Internal Design:
+First, we read input file and get original item set (item_set) and row
+information (row_list).
+Next, we follow a-priori algorithm to generate frequent itemsets. Suppose current
+set C_k contains the frequent itemset of exactly k elements. We join each itemset
+from C_k and the other itemsets from C_k to generate itemset with (k+1) elements.
+Meanwhile, we record frequencies of those newly-generated itemsets. Then, we
+filter those itemsets by min_support and update C_(k+1) to only contain frequent
+itemsets of exactly (k+1) elements.
+Then, we generate rules from (k > 1) itemsets and calculate their confidence to
+get strong confidence rules.
+In the end, we write results of frequent itemsets and rules of strong confidence
+into "output.txt"
+
+6. Sample run

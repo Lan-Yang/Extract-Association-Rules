@@ -1,0 +1,10 @@
+==Frequent itemsets (min_sup=70.0%)
+[pen], 100.0%
+[ink], 75.0%
+[pen,ink], 75.0%
+[pen,diary], 75.0%
+[diary], 75.0%
+
+==High-confidence association rules (min_conf=80.0%)
+[ink] => [pen] (Conf: 100.0%, Supp: 75.0%)
+[diary] => [pen] (Conf: 100.0%, Supp: 75.0%)
