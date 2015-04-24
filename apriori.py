@@ -89,13 +89,13 @@ def Apriori(file_name, min_sup, min_conf):
 	for item_set,v in freq_set.iteritems():
 		if len(item_set) > 1:
 			item_set = set(item_set)
-			for lhs in item_set:
+			for rhs in item_set:
+				copy = set(item_set)
+				copy.remove(rhs)
+				lhs = tuple(copy)
 				# Calculate confidence of rule
-				conf = v*1.0/freq_set[(lhs,)]
+				conf = v*1.0/freq_set[lhs]
 				if conf >= min_conf:
-					copy = set(item_set)
-					copy.remove(lhs)
-					rhs = tuple(copy)
 					try:
 						rules[lhs][rhs] = conf
 					except Exception:
