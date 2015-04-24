@@ -103,7 +103,7 @@ def Apriori(file_name, min_sup, min_conf):
 					tmp_list.append(conf)
 					tmp_list.append(supp)
 					try:
-						rules[lhs][rhs] = tmp_list 
+						rules[lhs][rhs] = tmp_list
 					except Exception:
 						rules[lhs] = {rhs: tmp_list}
 
@@ -113,16 +113,16 @@ def Print(freq_set, rules, min_sup, min_conf):
 	outfile = open("output.txt", 'w')
 	# Write frequent itemsets
 	# print '==Frequent itemsets (min_sup= {}%)\n'.format(min_sup)
-	outfile.write('==Frequent itemsets (min_sup={}%)\n'.format(int(min_sup * 100)))
+	outfile.write('==Frequent itemsets (min_sup={}%)\n'.format(min_sup * 100))
 	for item_set,v in freq_set.iteritems():
 		item_set = list(item_set)
 		outfile.write('[')
 		for i in item_set[:-1]:
 			outfile.write('%s,' % i)
 		outfile.write('%s' % item_set[-1])
-		outfile.write('], {}%\n'.format(int(v * 100)))
+		outfile.write('], {}%\n'.format(v * 100))
 	# Write high-confidence association rules
-	outfile.write('\n==High-confidence association rules (min_conf={}%)\n'.format(int(min_conf * 100)))
+	outfile.write('\n==High-confidence association rules (min_conf={}%)\n'.format(min_conf * 100))
 	for k1,v1 in rules.iteritems():
 		k1 = list(k1)
 		for k2,v2 in v1.iteritems():
@@ -132,8 +132,8 @@ def Print(freq_set, rules, min_sup, min_conf):
 			outfile.write('[')
 			for i in k1[:-1]:
 				outfile.write('%s,' % i)
-			outfile.write('%s' % i)
-			outfile.write('] => [%s] (Conf: {}%, Supp: {}%)\n'.format(rhs, int(conf * 100), int(supp * 100)))
+			outfile.write('%s' % k1[-1])
+			outfile.write('] => [{}] (Conf: {}%, Supp: {}%)\n'.format(rhs, conf * 100, supp * 100))
 	outfile.close()
 
 def main():
