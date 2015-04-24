@@ -111,7 +111,16 @@ def Apriori(file_name, min_sup, min_conf):
 
 def Print(freq_set, rules, min_sup, min_conf):
 	outfile = open("output.txt", 'w')
-	outfile.write('==Frequent itemsets (min_sup= %s)')
+	# Write frequent itemsets
+	outfile.write('==Frequent itemsets (min_sup= %d%)\n' % (int(min_sup * 100)))
+	for item_set,v in freq_set.iteritems():
+		item_set = list(item_set)
+		outfile.write('[')
+		for i in item_set[:-1]:
+			outfile.write('%s,' % i)
+		outfile.write('%s' % item_set[-1])
+		outfile.write('], %d%\n' % (int(v * 100)))
+	# Write high-confidence association rules
 
 	outfile.close()
 
