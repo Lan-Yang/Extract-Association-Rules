@@ -1,4 +1,5 @@
 import sys
+import collections
 
 def JoinSet(current_set, k):
 	_current_set = set()
@@ -85,8 +86,6 @@ def Apriori(file_name, min_sup, min_conf):
 		current_set, freq_set = MinSuppSet(current_set, row_list, min_sup, freq_set)
 		k += 1
 
-	# print freq_set
-
 	# Generate rules
 	for item_set,v in freq_set.iteritems():
 		if len(item_set) > 1:
@@ -112,9 +111,10 @@ def Apriori(file_name, min_sup, min_conf):
 def Print(freq_set, rules, min_sup, min_conf):
 	outfile = open("output.txt", 'w')
 	# Write frequent itemsets
-	# print '==Frequent itemsets (min_sup= {}%)\n'.format(min_sup)
+	od_freq = collections.OrderedDict(sorted(freq_set.items(), key=lambda t: -t[1]))
+	# Sorted by support
 	outfile.write('==Frequent itemsets (min_sup={}%)\n'.format(min_sup * 100))
-	for item_set,v in freq_set.iteritems():
+	for item_set,v in od_freq.iteritems():
 		item_set = list(item_set)
 		outfile.write('[')
 		for i in item_set[:-1]:
@@ -122,18 +122,24 @@ def Print(freq_set, rules, min_sup, min_conf):
 		outfile.write('%s' % item_set[-1])
 		outfile.write('], {}%\n'.format(v * 100))
 	# Write high-confidence association rules
-	outfile.write('\n==High-confidence association rules (min_conf={}%)\n'.format(min_conf * 100))
+	rules_list = []
 	for k1,v1 in rules.iteritems():
 		k1 = list(k1)
 		for k2,v2 in v1.iteritems():
 			rhs = k2
 			conf = v2[0]
 			supp = v2[1]
-			outfile.write('[')
-			for i in k1[:-1]:
-				outfile.write('%s,' % i)
-			outfile.write('%s' % k1[-1])
-			outfile.write('] => [{}] (Conf: {}%, Supp: {}%)\n'.format(rhs, conf * 100, supp * 100))
+			# Put all records into a list to sort
+			rules_list.append([k1, k2, conf, supp])
+	# Sorted by support
+	rules_list.sort(key=lambda t: -t[3])
+	outfile.write('\n==High-confidence association rules (min_conf={}%)\n'.format(min_conf * 100))
+	for i in rules_list:
+		outfile.write('[')
+		for j in i[0][:-1]:
+			outfile.write('%s,' % j)
+		outfile.write('%s' % i[0][-1])
+		outfile.write('] => [{}] (Conf: {}%, Supp: {}%)\n'.format(i[1], i[2] * 100, i[3] * 100))
 	outfile.close()
 
 def main():
@@ -159,12 +165,8 @@ def main():
 	# Call a_priori algorithm
 	freq_set, rules = Apriori(file_name, min_sup, min_conf)
 
-	print freq_set
-	print rules
-
 	# Print result
 	Print(freq_set, rules, min_sup, min_conf)
 
 if __name__ == '__main__':
-	print len(sys.argv)
 	main()
