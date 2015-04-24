@@ -85,6 +85,8 @@ def Apriori(file_name, min_sup, min_conf):
 		current_set, freq_set = MinSuppSet(current_set, row_list, min_sup, freq_set)
 		k += 1
 
+	# print freq_set
+
 	# Generate rules
 	for item_set,v in freq_set.iteritems():
 		if len(item_set) > 1:
@@ -92,14 +94,18 @@ def Apriori(file_name, min_sup, min_conf):
 			for rhs in item_set:
 				copy = set(item_set)
 				copy.remove(rhs)
-				lhs = tuple(copy)
+				lhs = tuple(set(copy))
 				# Calculate confidence of rule
 				conf = v*1.0/freq_set[lhs]
+				supp = freq_set[tuple(item_set)]
 				if conf >= min_conf:
+					tmp_list = []
+					tmp_list.append(conf)
+					tmp_list.append(supp)
 					try:
-						rules[lhs][rhs] = conf
+						rules[lhs][rhs] = tmp_list 
 					except Exception:
-						rules[lhs] = {rhs: conf}
+						rules[lhs] = {rhs: tmp_list}
 
 	return freq_set, rules
 
@@ -153,9 +159,8 @@ def main():
 	# Call a_priori algorithm
 	freq_set, rules = Apriori(file_name, min_sup, min_conf)
 
-	print rules
-
 	print freq_set
+	print rules
 
 	# Print result
 	Print(freq_set, rules, min_sup, min_conf)
