@@ -3,12 +3,21 @@ from collections import OrderedDict, defaultdict
 
 def JoinSet(current_set, k):
     _current_set = set()
-    tmp_sets = [set(i) for i in current_set]
-    for i in range(len(tmp_sets)):
-        for j in range(i, len(tmp_sets)):
-            tmp = tmp_sets[i] | tmp_sets[j]
+    # tmp_sets = [set(i) for i in current_set]
+    # for i in range(len(tmp_sets)):
+    #     for j in range(i, len(tmp_sets)):
+    #         tmp = tmp_sets[i] | tmp_sets[j]
+    for i in current_set:
+        for j in current_set:
+            tmp_set1 = set()
+            for item in i:
+                tmp_set1.add(item)
+            tmp_set2 = set()
+            for item in j:
+                tmp_set2.add(item)
+            tmp = tmp_set1.union(tmp_set2)
             if len(tmp) == k:
-                _current_set.add(tuple(tmp))
+                _current_set.add(tuple(sorted(tmp)))
     return _current_set
 
 def MinSuppSet(current_set, row_list, min_sup, freq_set):
@@ -77,24 +86,24 @@ def Apriori(file_name, min_sup, min_conf):
         k += 1
 
     # Generate rules
-    for item_set,v in freq_set.iteritems():
-        if len(item_set) > 1:
-            item_set = set(item_set)
-            for rhs in item_set:
-                copy = set(item_set)
-                copy.remove(rhs)
-                lhs = tuple(set(copy))
-                # Calculate confidence of rule
-                conf = v*1.0/freq_set[lhs]
-                supp = freq_set[tuple(item_set)]
-                if conf >= min_conf:
-                    tmp_list = []
-                    tmp_list.append(conf)
-                    tmp_list.append(supp)
-                    try:
-                        rules[lhs][rhs] = tmp_list
-                    except Exception:
-                        rules[lhs] = {rhs: tmp_list}
+    for k, v in freq_set.iteritems():
+        if len(k) <= 1: continue
+        for rhs in k:
+            copy = set(k)
+            copy.remove(rhs)
+            lhs = tuple(sorted(copy))
+            # Calculate confidence of rule
+            # print freq_set
+            conf = v*1.0/freq_set[lhs]
+            supp = freq_set[k]
+            if conf >= min_conf:
+                tmp_list = []
+                tmp_list.append(conf)
+                tmp_list.append(supp)
+                try:
+                    rules[lhs][rhs] = tmp_list
+                except Exception:
+                    rules[lhs] = {rhs: tmp_list}
 
     return freq_set, rules
 
