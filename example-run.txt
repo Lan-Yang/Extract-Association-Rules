@@ -1,10 +1,38 @@
-==Frequent itemsets (min_sup=70.0%)
-[pen], 100.0%
-[ink], 75.0%
-[pen,ink], 75.0%
-[pen,diary], 75.0%
-[diary], 75.0%
+==Frequent itemsets (min_sup=20.0%)
+[P], 85.76%
+[PAS], 57.78%
+[NY], 54.8%
+[NY,P], 50.34%
+[P,PAS], 47.58%
+[COM], 36.82%
+[COM,P], 33.64%
+[SDN], 32.4%
+[COM,NY], 30.38%
+[PAS,SDN], 30.06%
+[COM,NY,P], 28.32%
+[P,SDN], 26.52%
+[SUBN], 25.06%
+[P,PAS,SDN], 24.54%
+[VAN], 23.12%
+[PAS,SUBN], 22.72%
+[NY,PAS], 21.18%
+[P,SUBN], 21.0%
+[K], 20.7%
+[P,VAN], 20.66%
+[COM,VAN], 20.32%
 
 ==High-confidence association rules (min_conf=80.0%)
-[ink] => [pen] (Conf: 100.0%, Supp: 75.0%)
-[diary] => [pen] (Conf: 100.0%, Supp: 75.0%)
+[NY] => [P] (Conf: 91.8613138686%, Supp: 50.34%)
+[PAS] => [P] (Conf: 82.3468328141%, Supp: 47.58%)
+[COM] => [P] (Conf: 91.3633894622%, Supp: 33.64%)
+[COM] => [NY] (Conf: 82.5095057034%, Supp: 30.38%)
+[SDN] => [PAS] (Conf: 92.7777777778%, Supp: 30.06%)
+[COM,NY] => [P] (Conf: 93.2192231731%, Supp: 28.32%)
+[COM,P] => [NY] (Conf: 84.1854934602%, Supp: 28.32%)
+[SDN] => [P] (Conf: 81.8518518519%, Supp: 26.52%)
+[P,SDN] => [PAS] (Conf: 92.5339366516%, Supp: 24.54%)
+[PAS,SDN] => [P] (Conf: 81.6367265469%, Supp: 24.54%)
+[SUBN] => [PAS] (Conf: 90.6624102155%, Supp: 22.72%)
+[SUBN] => [P] (Conf: 83.7988826816%, Supp: 21.0%)
+[VAN] => [P] (Conf: 89.3598615917%, Supp: 20.66%)
+[VAN] => [COM] (Conf: 87.8892733564%, Supp: 20.32%)

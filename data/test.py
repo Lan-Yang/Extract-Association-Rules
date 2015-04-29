@@ -1,8 +1,8 @@
-infile = open('Parking_Violations_Issued_-_Fiscal_Year_2015.csv', 'r')
+infile = open('in.csv', 'r')
 sample = infile.readlines()
 infile.close()
 
-outfile = open('Parking_Violations_Issued_2015.csv', 'w')
+outfile = open('Parking_Violations_Issued_2013_2014.csv', 'w')
 
 count = 0
 
